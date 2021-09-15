@@ -23,9 +23,15 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                RangeSelectorTextFormField(labelText: 'Minimum'),
+                RangeSelectorTextFormField(
+                  labelText: 'Minimum',
+                  intValueSetter: (value) => _min = value,
+                ),
                 const SizedBox(height: 12),
-                RangeSelectorTextFormField(labelText: 'Minimum'),
+                RangeSelectorTextFormField(
+                  labelText: 'Minimum',
+                  intValueSetter: (value) => _max = value,
+                ),
               ],
             ),
           ),
@@ -43,11 +49,13 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
 }
 
 class RangeSelectorTextFormField extends StatelessWidget {
-  const RangeSelectorTextFormField({
+  RangeSelectorTextFormField({
     Key? key,
     required this.labelText,
+    required this.intValueSetter,
   }) : super(key: key);
   final String labelText;
+  final void Function(int value) intValueSetter;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +68,7 @@ class RangeSelectorTextFormField extends StatelessWidget {
         signed: true,
         decimal: false,
       ),
-      onSaved: (newValue) {},
+      onSaved: (newValue) => intValueSetter(int.parse(newValue ?? '')),
     );
   }
 }
