@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_foundations/main.dart';
 import 'package:flutter_foundations/randomizer_change_notifier.dart';
-import 'package:provider/src/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 typedef IntValueSetter = void Function(int value);
 
@@ -24,12 +25,14 @@ class RangeSelectorForm extends StatelessWidget {
             children: [
               RangeSelectorTextFormField(
                 labelText: 'Minimum',
-                intValueSetter: (value) => context.read<RandomizerChangeNotifier>().min = value,
+                intValueSetter: (value) => context.read(randomizerProvider).min = value,
+                // intValueSetter: (value) => context.read<RandomizerChangeNotifier>().min = value,
               ),
               const SizedBox(height: 12),
               RangeSelectorTextFormField(
                 labelText: 'Maximum',
-                intValueSetter: (value) => context.read<RandomizerChangeNotifier>().max = value,
+                intValueSetter: (value) => context.read(randomizerProvider).max = value,
+                // intValueSetter: (value) => context.read<RandomizerChangeNotifier>().max = value,
               ),
             ],
           ),

@@ -1,43 +1,40 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_foundations/main.dart';
 import 'package:flutter_foundations/randomizer_change_notifier.dart';
-import 'package:provider/provider.dart';
-import 'package:provider/src/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RandomizerPage extends StatelessWidget {
+class RandomizerPage extends ConsumerWidget {
   RandomizerPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // final generatedNumber = useState<int?>(null);
+  Widget build(BuildContext context, WidgetReference ref) {
+    final randomizer = ref.watch(randomizerProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Randomizer'),
       ),
-      body: Center(child: Consumer<RandomizerChangeNotifier>(
-        builder: (context, notifier, child) {
-          return Text(
-            notifier.generatedNumber?.toString() ?? 'Generate a number',
-            style: TextStyle(fontSize: 42),
-          );
-        },
-      )
-          // child: Text(
-          //   // generatedNumber.value?.toString() ?? 'Generate a number', //used safe operator ?, coz number can be null still
-          //   context.read<RandomizerChangeNotifier>().generatedNumber?.toString() ?? 'Generate a number', //used safe operator ?, coz number can be null still
-          //   style: TextStyle(fontSize: 42),
-          // ),
-          ),
+      body: Center(
+        child: Text(
+          randomizer.generatedNumber?.toString() ?? 'Generate a number',
+          style: TextStyle(fontSize: 42),
+        ),
+        // child: Consumer<RandomizerChangeNotifier>(
+        //   builder: (context, notifier, child) {
+        //     return Text(
+        //       notifier.generatedNumber?.toString() ?? 'Generate a number',
+        //       style: TextStyle(fontSize: 42),
+        //     );
+        //   },
+        // ),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          context.read<RandomizerChangeNotifier>().generateRandomNumber();
-          // generatedNumber.value = min + randomGenerator.nextInt(max + 1 - min);
-          //   setState(() {
-          //     _generatedNumber = widget.min + randomGenerator.nextInt(widget.max + 1 - widget.min);
-          //   });
+          context.read(randomizerProvider).generateRandomNumber();
         },
         label: Text('Generate'),
       ),
