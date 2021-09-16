@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 typedef IntValueSetter = void Function(int value);
 
-class RangeSelectorForm extends StatelessWidget {
+class RangeSelectorForm extends ConsumerWidget {
   const RangeSelectorForm({
     Key? key,
     required this.formKey,
@@ -14,7 +14,7 @@ class RangeSelectorForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Form(
       key: formKey,
       child: Container(
@@ -25,13 +25,13 @@ class RangeSelectorForm extends StatelessWidget {
             children: [
               RangeSelectorTextFormField(
                 labelText: 'Minimum',
-                intValueSetter: (value) => context.read(randomizerProvider).min = value,
+                intValueSetter: (value) => ref.read(randomizerProvider.notifier).setMin(value),
                 // intValueSetter: (value) => context.read<RandomizerChangeNotifier>().min = value,
               ),
               const SizedBox(height: 12),
               RangeSelectorTextFormField(
                 labelText: 'Maximum',
-                intValueSetter: (value) => context.read(randomizerProvider).max = value,
+                intValueSetter: (value) => ref.read(randomizerProvider.notifier).setMax(value),
                 // intValueSetter: (value) => context.read<RandomizerChangeNotifier>().max = value,
               ),
             ],

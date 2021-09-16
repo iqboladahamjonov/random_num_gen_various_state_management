@@ -11,7 +11,7 @@ class RandomizerPage extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetReference ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final randomizer = ref.watch(randomizerProvider);
 
     return Scaffold(
@@ -34,7 +34,7 @@ class RandomizerPage extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          context.read(randomizerProvider).generateRandomNumber();
+          ref.read(randomizerProvider.notifier).generateRandomNumber();
         },
         label: Text('Generate'),
       ),
