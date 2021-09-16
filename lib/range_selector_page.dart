@@ -10,8 +10,8 @@ class RangeSelectorPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final min = useState<int>(0);
     final max = useState<int>(0);
+    final min = useState<int>(0);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Select Range'),
